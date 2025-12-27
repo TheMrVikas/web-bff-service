@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.rent.bff.config.FeignConfig;
-import com.rent.bff.verification.dto.EmailGenerateRequest;
-import com.rent.bff.verification.dto.EmailVerifyRequest;
-import com.rent.bff.verification.dto.OtpVerifyRequest;
+import com.rent.bff.feign.client.dto.EmailGenerateRequest;
+import com.rent.bff.feign.client.dto.EmailVerifyRequest;
+import com.rent.bff.feign.client.dto.OtpVerifyRequest;
 
 /**
  * Description: this class is responsible for TODO

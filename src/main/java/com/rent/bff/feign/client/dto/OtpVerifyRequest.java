@@ -1,9 +1,8 @@
-package com.rent.bff.verification.dto;
+package com.rent.bff.feign.client.dto;
 
 import com.rent.bff.customValidator.ValidMobile;
 
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 /**

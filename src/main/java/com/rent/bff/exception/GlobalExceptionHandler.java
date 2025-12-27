@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.rent.bff.dto.ErrorResponse;
 
+import jakarta.servlet.http.HttpServletRequest;
+
 /**
  * Description: this class is responsible for TODO
  * vikas
@@ -20,7 +22,7 @@ import com.rent.bff.dto.ErrorResponse;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 	
-	@ExceptionHandler(WebBffException.class)
+	/*@ExceptionHandler(WebBffException.class)
 	public ResponseEntity<ErrorResponse> handleWebBffException(WebBffException ex) {
 
 		ErrorResponse response = new ErrorResponse();
@@ -30,6 +32,18 @@ public class GlobalExceptionHandler {
 		response.setTimestamp(ex.getTimestamp().toString());
 
 		return ResponseEntity.status(ex.getStatus()).body(response);
+	}*/
+	
+	@ExceptionHandler(WebBffException.class)
+	public ResponseEntity<DownstreamErrorResponse> handleWebBff(WebBffException ex, HttpServletRequest request) {
+
+		DownstreamErrorResponse error = ex.getErrorr();
+
+		if (error.getPath() == null) {
+			error.setPath(request.getRequestURI());
+		}
+
+		return ResponseEntity.status(error.getStatus()).body(error);
 	}
 	
 	@ExceptionHandler(MethodArgumentNotValidException.class)

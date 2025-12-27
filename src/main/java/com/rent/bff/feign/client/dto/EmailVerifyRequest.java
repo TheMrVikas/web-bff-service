@@ -1,4 +1,4 @@
-package com.rent.bff.verification.dto;
+package com.rent.bff.feign.client.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;

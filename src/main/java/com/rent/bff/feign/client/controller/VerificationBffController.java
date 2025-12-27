@@ -1,4 +1,4 @@
-package com.rent.bff.verification.controller;
+package com.rent.bff.feign.client.controller;
 
 import java.util.Objects;
 
@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.rent.bff.feign.client.VerificationFeignClient;
-import com.rent.bff.verification.dto.EmailGenerateRequest;
-import com.rent.bff.verification.dto.EmailVerifyRequest;
-import com.rent.bff.verification.dto.OtpVerifyRequest;
+import com.rent.bff.feign.client.dto.EmailGenerateRequest;
+import com.rent.bff.feign.client.dto.EmailVerifyRequest;
+import com.rent.bff.feign.client.dto.OtpVerifyRequest;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
