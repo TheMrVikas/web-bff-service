@@ -1,9 +1,11 @@
 package com.rent.bff.exception;
 
-import java.util.Map;
+import java.time.LocalDateTime;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -28,5 +30,17 @@ public class GlobalExceptionHandler {
 		response.setTimestamp(ex.getTimestamp().toString());
 
 		return ResponseEntity.status(ex.getStatus()).body(response);
+	}
+	
+	@ExceptionHandler(MethodArgumentNotValidException.class)
+	public ResponseEntity<ErrorResponse> handleValidationException(MethodArgumentNotValidException ex) {
+
+		String errorMessage = ex.getBindingResult().getFieldErrors().stream().findFirst()
+				.map(FieldError::getDefaultMessage).orElse("Validation failed");
+
+		ErrorResponse response = new ErrorResponse(errorMessage, "VALIDATION_ERROR", HttpStatus.BAD_REQUEST.value(),
+				LocalDateTime.now().toString());
+
+		return ResponseEntity.badRequest().body(response);
 	}
 }

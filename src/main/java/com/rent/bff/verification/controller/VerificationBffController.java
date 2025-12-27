@@ -11,8 +11,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.rent.bff.feign.client.VerificationFeignClient;
+import com.rent.bff.verification.dto.EmailGenerateRequest;
+import com.rent.bff.verification.dto.EmailVerifyRequest;
 import com.rent.bff.verification.dto.OtpVerifyRequest;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 /**
@@ -33,16 +36,27 @@ public class VerificationBffController {
 		return verificationFeignClient.getWelcomeMsg();
 	}
 	
-	@PostMapping(value = "/get-otp",produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<String> generateOtp(@RequestBody OtpVerifyRequest request) {
+	@PostMapping(value = "/gen-otp",produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<String> generateOtp(@Valid @RequestBody OtpVerifyRequest request) {
 		String otp = verificationFeignClient.generateOtp(request);
 		return Objects.nonNull(otp)?ResponseEntity.ok(otp):ResponseEntity.internalServerError().build();
 	}
 	
 	@PostMapping(value = "/verify-otp",produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<String> verifyOtp(@RequestBody OtpVerifyRequest request){
+	public ResponseEntity<String> verifyOtp(@Valid @RequestBody OtpVerifyRequest request){
 		String verifyOtp = verificationFeignClient.verifyOtp(request);
 		return Objects.nonNull(verifyOtp)?ResponseEntity.ok(verifyOtp):ResponseEntity.internalServerError().build();
 	}
 	
+	@PostMapping(value = "/gen-email", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<String> generateEmail(@Valid @RequestBody EmailGenerateRequest request) {
+		String email = verificationFeignClient.generateEmail(request);
+		return Objects.nonNull(email)?ResponseEntity.ok(email):ResponseEntity.internalServerError().build();
+	}
+	
+	@PostMapping(value = "/verify-email", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<String> verifyEmail(@Valid @RequestBody EmailVerifyRequest request) {
+		String verifyEmail = verificationFeignClient.verifyEmail(request);
+		return Objects.nonNull(verifyEmail)?ResponseEntity.ok(verifyEmail):ResponseEntity.internalServerError().build();
+	}
 }

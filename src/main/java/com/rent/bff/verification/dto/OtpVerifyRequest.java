@@ -1,5 +1,9 @@
 package com.rent.bff.verification.dto;
 
+import com.rent.bff.customValidator.ValidMobile;
+
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 /**
@@ -10,6 +14,8 @@ import lombok.Data;
  */
 @Data
 public class OtpVerifyRequest {
+	@NotBlank(message = "Mobile number is required")
+	@ValidMobile
     private String mobile;
     private String otp;
 }
