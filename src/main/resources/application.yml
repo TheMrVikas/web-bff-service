@@ -1,0 +1,7 @@
+server:
+  port: 9091
+
+#application name
+spring:
+  application:
+    name: 02-BFF-SERVICE
